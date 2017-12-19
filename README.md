@@ -14,6 +14,10 @@
 ##### 文章列表取得
 [Quantocracy RSS](http://feeds.feedburner.com/Quantocracy) 获得文章列表,包括 **title**, **description**, **link**.
 
+> 注意:
+> - Quantocracy RSS 托管在 feedburner 上,所以国内可能无法顺利访问.
+> - Quantocracy 主页需要一些伪装才能顺利获取页面.
+
 ![quantocracy_rss](./img/quantocracy.png)
 
 ##### 单独文章获取
