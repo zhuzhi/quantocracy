@@ -20,8 +20,10 @@
 
 > 网页结构:
 > - html(chrome)
+>
 > 	![quantocracy_rss](./img/quantocracy.png)
 > - xml(urllib)
->		![quantocracy_xml](./img/quantocracy_xml.png)
+>
+>	 ![quantocracy_xml](./img/quantocracy_xml.png)
 
 ##### 单独文章获取
