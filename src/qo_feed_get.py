@@ -63,7 +63,7 @@ def qo_feed_get(overwrite=True):
             file_entry_tile = link_format % (entry_title.string.encode('utf-8'), entry_title['href'].encode('utf-8'))
             item_file.write('#### ' + file_entry_tile + '\n')
             item_file.write('\n')
-            item_file.write(entry_descr.string.encode('utf-8'))
+            item_file.write(entry_descr.string.encode('utf-8') + '\n')
             item_file.write('\n')
 
         item_file.close()
