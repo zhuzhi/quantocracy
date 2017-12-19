@@ -71,6 +71,6 @@ def qo_feed_get(overwrite=True):
 if __name__ == '__main__':
 
     import os
-    os.chdir('~/quantocracy')
+    os.chdir(os.getenv("HOME") + '/quantocracy')
 
     qo_feed_get(overwrite=False)
