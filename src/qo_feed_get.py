@@ -52,19 +52,19 @@ def qo_feed_get(overwrite=True):
 
         file_title = link_format % (item_title.string.encode('utf-8'), item_link.string.encode('utf-8'))
 
-        item_file.write('### ' + file_title + b'\n')
-        item_file.write(b'\n')
-        item_file.write(item_pubDate.string + b'\n')
+        item_file.write('### ' + file_title + '\n')
+        item_file.write('\n')
+        item_file.write(item_pubDate.string + '\n')
 
         for entry in item_content.find('div', {'id': 'qo-mashup'}).find_all('div', {'class': 'qo-entry'}):
             entry_title = entry.find('a', {'class': 'qo-title'})
             entry_descr = entry.find('div', {'class': 'qo-description'})
 
             file_entry_tile = link_format % (entry_title.string.encode('utf-8'), entry_title['href'].encode('utf-8'))
-            item_file.write('#### ' + file_entry_tile + b'\n')
-            item_file.write(b'\n')
-            item_file.write(entry_descr.string.encode('utf-8') + b'\n')
-            item_file.write(b'\n')
+            item_file.write('#### ' + file_entry_tile + '\n')
+            item_file.write('\n')
+            item_file.write((entry_descr + '\n').string.encode('utf-8'))
+            item_file.write('\n')
 
         item_file.close()
 
