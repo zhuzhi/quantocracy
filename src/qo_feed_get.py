@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # @Time    : 17-12-20 上午12:54
 # @Author  : zhuzhi
@@ -7,7 +7,7 @@
 # @Desc     :
 # @Contact : zhuzhi90@gmail.com
 import re
-import urllib
+import urllib.request
 import datetime
 from bs4 import BeautifulSoup
 
@@ -26,7 +26,7 @@ def qo_feed_get(overwrite=True):
 
     link_format = '[%s](%s)'
 
-    page_qo_feed = urllib.urlopen(url_qo_feed)
+    page_qo_feed = urllib.request.urlopen(url_qo_feed)
 
     soup_qo_feed = BeautifulSoup(page_qo_feed, 'xml')
 
@@ -71,6 +71,9 @@ def qo_feed_get(overwrite=True):
 if __name__ == '__main__':
 
     import os
-    os.chdir(os.getenv("HOME") + '/quantocracy')
+
+
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(base_dir)
 
     qo_feed_get(overwrite=False)
