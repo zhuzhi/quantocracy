@@ -50,6 +50,8 @@ def qo_feed_get(overwrite=True):
                 # print '[qo_feed_get] ' + item_date + ' already exists!'
                 continue
 
+        print('[qo_feed_get] RSS ' + item_title.string)
+
         item_file = open(dir_sav + item_date + '.md', 'w')
 
         file_title = link_format % (item_title.string, item_link.string)
@@ -82,6 +84,8 @@ def qo_feed_get(overwrite=True):
             item_file.write('\n')
             item_file.writelines(entry_descr.string)
             item_file.write('\n')
+
+            print('[qo_feed_get] ENTRY ' + entry_title.string)
 
             entry_pdf_file = item_pdf_path + entry_title.string.replace(' ', '_') + '.pdf'
 
