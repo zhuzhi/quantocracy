@@ -87,9 +87,9 @@ def qo_feed_get(overwrite=True):
 
             print('[qo_feed_get] ENTRY ' + entry_title.string)
 
-            entry_pdf_file = item_pdf_path + entry_title.string.replace(' ', '_') + '.pdf'
-
-            pdfkit.from_url(entry_title['href'], entry_pdf_file)
+            try:
+                entry_pdf_file = item_pdf_path + entry_title.string.replace(' ', '_') + '.pdf'
+                pdfkit.from_url(entry_title['href'], entry_pdf_file)
 
         item_file.close()
 
