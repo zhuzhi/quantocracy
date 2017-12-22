@@ -78,7 +78,8 @@ def qo_feed_get(overwrite=True):
         item_file.writelines(item_pubDate.string)
         item_file.write('\n')
 
-        item_page = urllib.request.urlopen(item_link)
+        item_page = urllib.request.urlopen(item_link).read()
+        item_page = BeautifulSoup(item_page, 'lxml')
 
         for entry in item_page.find('div', {'id': 'qo-mashup'}).find_all('div', {'class': 'qo-entry'}):
             entry_title = entry.find('a', {'class': 'qo-title'})
