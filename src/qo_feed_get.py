@@ -94,7 +94,7 @@ def qo_feed_get(overwrite=True):
             except:
                 print('pdf error!')
 
-            item_file.close()
+        item_file.close()
 
 if __name__ == '__main__':
 
