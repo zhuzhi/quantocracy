@@ -90,8 +90,11 @@ def qo_feed_get(overwrite=True):
             try:
                 entry_pdf_file = item_pdf_path + entry_title.string.replace(' ', '_') + '.pdf'
                 pdfkit.from_url(entry_title['href'], entry_pdf_file)
+                print('pdf success!')
+            except:
+                print('pdf error!')
 
-        item_file.close()
+            item_file.close()
 
 if __name__ == '__main__':
 
