@@ -11,26 +11,7 @@ import os
 import urllib.request
 import datetime
 from bs4 import BeautifulSoup
-
-
-class QuantocracyRSSFeed(object):
-
-    def __init__(self, title, link, pubdate, date):
-
-        self.title = title
-        self.link = link
-        self.pubdate = pubdate
-        self.date = date
-        self.title_md = '[%s](%s)' % (self.title, self.link)
-        self.entry = list()
-
-    def add_entry(self, entry_title, entry_link, entry_descr):
-
-        entry_title_md = '[%s](%s)' % (entry_title, entry_link)
-
-        self.entry.append({'title': entry_title, 'title_md': entry_title_md,
-                           'link': entry_link, 'description': entry_descr})
-
+import pdfkit
 
 
 def qo_feed_get(overwrite=True):
@@ -88,6 +69,10 @@ def qo_feed_get(overwrite=True):
         item_page = urllib.request.urlopen(item_req).read()
         item_page = BeautifulSoup(item_page, 'lxml')
 
+        item_pdf_path = './pdf/' + item_date + '/'
+        if not os.path.exists(item_pdf_path):
+            os.mkdir(item_pdf_path)
+
         for entry in item_page.find('div', {'id': 'qo-mashup'}).find_all('div', {'class': 'qo-entry'}):
             entry_title = entry.find('a', {'class': 'qo-title'})
             entry_descr = entry.find('div', {'class': 'qo-description'})
@@ -97,6 +82,10 @@ def qo_feed_get(overwrite=True):
             item_file.write('\n')
             item_file.writelines(entry_descr.string)
             item_file.write('\n')
+
+            entry_pdf_file = item_pdf_path + entry_title.string.replace(' ', '_')
+
+            pdfkit.from_url(entry_title['href'], entry_pdf_file)
 
         item_file.close()
 
