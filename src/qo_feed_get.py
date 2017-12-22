@@ -13,6 +13,26 @@ import datetime
 from bs4 import BeautifulSoup
 
 
+class QuantocracyRSSFeed(object):
+
+    def __init__(self, title, link, pubdate, date):
+
+        self.title = title
+        self.link = link
+        self.pubdate = pubdate
+        self.date = date
+        self.title_md = '[%s](%s)' % (self.title, self.link)
+        self.entry = list()
+
+    def add_entry(self, entry_title, entry_link, entry_descr):
+
+        entry_title_md = '[%s](%s)' % (entry_title, entry_link)
+
+        self.entry.append({'title': entry_title, 'title_md': entry_title_md,
+                           'link': entry_link, 'description': entry_descr})
+
+
+
 def qo_feed_get(overwrite=True):
     """
     从 quantocracy 的 RSS 页面获取内容. 依据日期写成 markdown 格式.
@@ -39,7 +59,7 @@ def qo_feed_get(overwrite=True):
         item_title = item.find('title')
         item_link = item.find('link')
         item_pubDate = item.find('pubDate')
-        item_content = BeautifulSoup(item.find('content:encoded').string, 'lxml')
+        # item_content = BeautifulSoup(item.find('content:encoded').string, 'lxml')
 
         item_date = datetime.datetime.strptime(re.search(re_date, item_title.string).group(), '%m/%d/%Y').strftime(
             '%Y-%m-%d')
@@ -58,7 +78,9 @@ def qo_feed_get(overwrite=True):
         item_file.writelines(item_pubDate.string)
         item_file.write('\n')
 
-        for entry in item_content.find('div', {'id': 'qo-mashup'}).find_all('div', {'class': 'qo-entry'}):
+        item_page = urllib.request.urlopen(item_link)
+
+        for entry in item_page.find('div', {'id': 'qo-mashup'}).find_all('div', {'class': 'qo-entry'}):
             entry_title = entry.find('a', {'class': 'qo-title'})
             entry_descr = entry.find('div', {'class': 'qo-description'})
 
