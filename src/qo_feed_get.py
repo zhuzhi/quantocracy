@@ -78,7 +78,7 @@ def qo_feed_get(overwrite=True):
         item_file.writelines(item_pubDate.string)
         item_file.write('\n')
 
-        item_req = urllib.request.Request(url, headers={
+        item_req = urllib.request.Request(item_link, headers={
             'Connection': 'Keep-Alive',
             'Accept': 'text/html, application/xhtml+xml, */*',
             'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
