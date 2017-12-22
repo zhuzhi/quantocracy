@@ -78,7 +78,14 @@ def qo_feed_get(overwrite=True):
         item_file.writelines(item_pubDate.string)
         item_file.write('\n')
 
-        item_page = urllib.request.urlopen(item_link).read()
+        item_req = urllib.request.Request(url, headers={
+            'Connection': 'Keep-Alive',
+            'Accept': 'text/html, application/xhtml+xml, */*',
+            'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
+        })
+
+        item_page = urllib.request.urlopen(item_req).read()
         item_page = BeautifulSoup(item_page, 'lxml')
 
         for entry in item_page.find('div', {'id': 'qo-mashup'}).find_all('div', {'class': 'qo-entry'}):
